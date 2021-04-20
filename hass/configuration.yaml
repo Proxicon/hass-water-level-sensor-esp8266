@@ -1,0 +1,16 @@
+#MQTT Rototank
+  - platform: mqtt
+    name: "Rototank HC-SR04"
+    state_topic: "rototank/sensor/hcrs04"
+    unit_of_measurement: "cm"
+  - platform: mqtt
+    name: "Rototank Liters"
+    state_topic: "rototank/sensor/liters"
+    unit_of_measurement: "L"
+  - platform: mqtt
+    name: "Rototank PctFree"
+    state_topic: "rototank/sensor/PctFree"
+    unit_of_measurement: "%"
+  - platform: mqtt
+    name: "Rototank Wash Cycles Remaining"
+    state_topic: "rototank/sensor/WashCyclesRemaining"

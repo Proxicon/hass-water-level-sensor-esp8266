@@ -1,0 +1,50 @@
+cards:
+  - type: entities
+    entities:
+      - switch.shelly_shsw_1_76ecbf
+    state_color: true
+  - cards:
+      - color_stops:
+          '40': '#00dc10'
+          '60': '#ff0000'
+          '80': '#ffe400'
+        entity: sensor.rototank_pct_full
+        font_style:
+          font-size: 1.5em
+        gradient: true
+        name: Roto 5KL (%)
+        stroke_width: 10
+        type: 'custom:circle-sensor-card'
+      - color_stops:
+          '50': '#ff0000'
+          '75': '#ffe400'
+          '100': '#00dc10'
+        entity: sensor.rototank_liters
+        font_style:
+          font-size: 1.5em
+        gradient: true
+        name: Rototank Liters
+        stroke_width: 10
+        type: 'custom:circle-sensor-card'
+    type: horizontal-stack
+  - entities:
+      - entity: sensor.rototank_liters
+        name: Rototank Liters History
+    type: history-graph
+  - entities:
+      - entity: sensor.rototank_wash_cycles_remaining
+        icon: 'mdi:water'
+        name: Wash Cycles
+      - entity: sensor.rototank_pct_full
+        icon: 'mdi:water'
+        name: Full (%)
+      - entity: sensor.rototank_liters
+        icon: 'mdi:water'
+        name: Liters (L)
+      - entity: sensor.rototank_hc_sr04
+        icon: 'mdi:water'
+        name: CM
+    type: glance
+show_header_toggle: false
+title: RotoTank Overview
+type: 'custom:vertical-stack-in-card'
