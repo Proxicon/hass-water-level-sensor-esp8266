@@ -2,7 +2,8 @@
 /*
  * Description: Distance measurement using ultrasonic HC-SR04 and ESP8266
  *              & publish results to MQTT
- * 20-04-2021
+ * 21/04-2021 - Added 3x sample averaging
+ * 20-04-2021 - Initial
  */
 
 #include <Arduino.h>
@@ -25,16 +26,17 @@ int liters_per_cm = 25;   // for the roto 5kl it is 5000(max liters)/200(height)
 int liters_per_wash = 80; // used to calculated washing maching cycles remaining from tank
 int cycles_remaining;     // used to calculate how many washing machine wash cycles the tank can service
 int percentage; 		  // % of of tank_liters
+int counter;              // used for calculating average readings
 
-// user config: TODO
+// wifi config
 const char* wifi_ssid = "SSID";          // SSID
 const char* wifi_password = "Password";  // WIFI_Pass
 const unsigned int writeInterval = 2500; // write interval (in ms)
 
-// Wifi
+// Instance Wifi client
 WiFiClient wclient;
 
-// mqtt server
+// Instance mqtt server
 IPAddress server(10, 247, 29, 35);
 PubSubClient client(wclient, server);
 
@@ -50,6 +52,7 @@ void setup() {
   Serial.print("connecting to WIFI : ");
   Serial.println(wifi_ssid);
   WiFi.begin(wifi_ssid, wifi_password);
+
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
@@ -70,20 +73,30 @@ void setup() {
 
 void loop() {
 
+	// set local variables
+	long duration, distance, averagedistance = 0;
+
     // wait for WiFi connection
 	if (WiFi.status() == WL_CONNECTED){
 
-		long duration, distance;
-		digitalWrite(ULTRASONIC_TRIG_PIN, LOW);  
-		delayMicroseconds(2); 
-		
-		digitalWrite(ULTRASONIC_TRIG_PIN, HIGH);
-		delayMicroseconds(10); 
-		
-		digitalWrite(ULTRASONIC_TRIG_PIN, LOW);
-		duration = pulseIn(ULTRASONIC_ECHO_PIN, HIGH);
-		distance = (duration/2) / 29.1;
-		String mqtt_dist = String(distance); // using a long
+		// collect 3 samples and calculate averge
+		for(counter = 0;counter <= 2;counter++) {
+			digitalWrite(ULTRASONIC_TRIG_PIN, LOW);  
+			delayMicroseconds(2); 
+			
+			digitalWrite(ULTRASONIC_TRIG_PIN, HIGH);
+			delayMicroseconds(10); 
+			
+			digitalWrite(ULTRASONIC_TRIG_PIN, LOW);
+			duration = pulseIn(ULTRASONIC_ECHO_PIN, HIGH);
+			distance = (duration/2) / 29.1;
+
+			averagedistance = (averagedistance+distance);
+		}
+
+		// calulate average
+		distance = averagedistance/3;
+		String mqtt_dist = String(distance);
 
 		// echo sensor data to console
 		Serial.print("Ultrasonic Distance: ");
