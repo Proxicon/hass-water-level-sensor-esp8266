@@ -94,7 +94,7 @@ void loop() {
 			averagedistance = (averagedistance+distance);
 		}
 
-		// calulate average
+		// calculate average
 		distance = averagedistance/3;
 		String mqtt_dist = String(distance);
 
