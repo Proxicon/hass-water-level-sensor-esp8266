@@ -27,8 +27,8 @@ int cycles_remaining;
 int percentage; // % of of tank_liters
 
 // user config: TODO
-const char* wifi_ssid = "Bostonnetworks.co.za::2Ghz";  // SSID
-const char* wifi_password = "Access01";                // WIFI
+const char* wifi_ssid = "SSID";  // SSID
+const char* wifi_password = "Password";                // WIFI
 const unsigned int writeInterval = 2500;               // write interval (in ms)
 
 // Wifi
