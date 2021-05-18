@@ -1,9 +1,11 @@
 ## Features
 
-ESP8266 + HC-SR04 collector & publish to MQTT for use in Home Assistant or Node-Red
+ESP8266 + (HC-SR04 or SN-SR04T-v3.0) collector & publish to MQTT for use in Home Assistant or Node-Red
 * 10x samples read with 100ms delay between samples
 * Publish sensor data to MQTT
 * Apply Kalman filter to the average of the samples
+* .ino file in the repo for the sn-sr04t-v3.0 waterproof sensor
+* .ino file in the repo for the hc-sr04 sensor
 
 ## ESP8266 & HC-SR04 Install & setup
 
