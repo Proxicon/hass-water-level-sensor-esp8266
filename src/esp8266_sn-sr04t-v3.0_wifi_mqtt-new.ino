@@ -2,6 +2,8 @@
 /*
  * Description: Distance measurement using ultrasonic HC-SR04 and ESP8266
  *              & publish results to MQTT
+ * 
+ * 18-05-2021 - replaced hc-sr04 with sn-sr04t-v3.0 sensor
  * 02-05-2021 - Added SimpleKalmanFilter
  *            - added sensor_cm_above_top to factor in the CM measured we need to remove
  *              in order to get an acurate reading
