@@ -123,8 +123,8 @@ void loop() {
 			// of the ping to the reception of its echo off of an object.
 			duration = pulseIn(ULTRASONIC_ECHO_PIN, HIGH);
 
-			// The following is for the hc-sr04
-			distance = (duration/2) / 29.1;
+			// the following is for the sn-sr04t-v3.0
+			distance = duration*0.034/2;
 
 			// Trim the CM the sensor is above the top of the tank
 			true_distance = (distance-sensor_cm_above_top);
